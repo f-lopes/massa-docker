@@ -1,0 +1,20 @@
+schemaVersion: "2.0.0"
+
+fileExistenceTests:
+  - name: "massa-client binary"
+    path: "/massa-client/massa-client"
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
+
+metadataTest:
+  labels:
+    - key: maintainer
+      value: "Florian Lopes <florian.lopes@outlook.com>"
+  env:
+    - key: MASSA_CLIENT_HOME
+      value: "/massa-client"
+    - key: MASSA_VERSION
+      value: "TEST.5.0"
+  volumes: ["/massa-client/config"]
+  workdir: "/massa-client"
+  entrypoint: ["/massa-client/massa-client"]

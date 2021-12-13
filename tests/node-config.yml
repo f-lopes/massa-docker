@@ -1,0 +1,21 @@
+schemaVersion: "2.0.0"
+
+fileExistenceTests:
+  - name: "massa-node binary"
+    path: "/massa-node/massa-node"
+    shouldExist: true
+    permissions: "-rwxr-xr-x"
+
+metadataTest:
+  labels:
+    - key: maintainer
+      value: "Florian Lopes <florian.lopes@outlook.com>"
+  env:
+    - key: MASSA_NODE_HOME
+      value: "/massa-node"
+    - key: MASSA_VERSION
+      value: "TEST.5.0"
+  exposedPorts: ["31244", "31245"]
+  volumes: ["/massa-node/config"]
+  workdir: "/massa-node"
+  entrypoint: ["/massa-node/massa-node"]
