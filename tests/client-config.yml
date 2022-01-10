@@ -14,7 +14,7 @@ metadataTest:
     - key: MASSA_CLIENT_HOME
       value: "/massa-client"
     - key: MASSA_VERSION
-      value: "TEST.5.0"
+      value: "TEST.6.5"
   volumes: ["/massa-client/config"]
   workdir: "/massa-client"
   entrypoint: ["/massa-client/massa-client"]
