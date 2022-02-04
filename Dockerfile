@@ -1,12 +1,12 @@
 ARG RUNTIME_BASE_IMAGE=gcr.io/distroless/cc-debian11
-ARG MASSA_VERSION=TEST.6.5
+ARG MASSA_VERSION=TEST.7.0
 
 FROM alpine:3.15 as massa-binaries
 
 LABEL maintainer="Florian Lopes <florian.lopes@outlook.com>"
 
 ARG MASSA_VERSION
-ARG MASSA_RELEASE_BINARY=release_linux.zip
+ARG MASSA_RELEASE_BINARY=massa_${MASSA_VERSION}_release_linux.tar.gz
 ARG MASSA_RELEASE_URL="https://github.com/massalabs/massa/releases/download/${MASSA_VERSION}/${MASSA_RELEASE_BINARY}"
 
 ENV MASSA_VERSION=${MASSA_VERSION} \
@@ -14,8 +14,9 @@ ENV MASSA_VERSION=${MASSA_VERSION} \
 ENV MASSA_NODE_HOME="${MASSA_HOME}/massa-node" \
     MASSA_CLIENT_HOME="${MASSA_HOME}/massa-client"
 
-RUN wget -q ${MASSA_RELEASE_URL} && \
-    unzip ${MASSA_RELEASE_BINARY} -d ${MASSA_HOME} && \
+RUN mkdir ${MASSA_HOME} && \
+    wget -q ${MASSA_RELEASE_URL} && \
+    tar -xvf ${MASSA_RELEASE_BINARY} -C ${MASSA_HOME} --strip-components 1 && \
     rm -rf ${MASSA_RELEASE_BINARY} && \
     chmod +x ${MASSA_NODE_HOME}/massa-node ${MASSA_CLIENT_HOME}/massa-client
 

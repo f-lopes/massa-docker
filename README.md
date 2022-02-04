@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/f-lopes/massa-docker/actions/workflows/main.yml/badge.svg)](https://github.com/f-lopes/massa-docker/actions/workflows/main.yml)
 
-The current supported Massa version is `TEST.6.5`.
+The current supported Massa version is `TEST.7.0`.
 
 :information_source: [Massa repository](https://github.com/massalabs/massa/)
 
@@ -18,7 +18,7 @@ The current supported Massa version is `TEST.6.5`.
 ### Running a Massa node
 
 ```shell
-docker run -d --name massa-node ghcr.io/f-lopes/massa-node:TEST.6.5
+docker run -d --name massa-node ghcr.io/f-lopes/massa-node:TEST.7.0
 ```
 
 #### Inspect node logs
@@ -37,7 +37,7 @@ cat staking_keys.json
 ```
 
 ```shell
-docker run -d --name massa-node -v /some/directory/:/massa-node/config/ ghcr.io/f-lopes/massa-node:TEST.6.5
+docker run -d --name massa-node -v /some/directory/:/massa-node/config/ ghcr.io/f-lopes/massa-node:TEST.7.0
 ```
 
 If you don't have a private key yet, check this [section](#Generating-a-wallet).
@@ -45,7 +45,7 @@ If you don't have a private key yet, check this [section](#Generating-a-wallet).
 ### Launching Massa client
 
 ```shell
-docker run --rm -it -v /massa-client-config-directory/:/massa-client/config/ ghcr.io/f-lopes/massa-client:TEST.6.5
+docker run --rm -it -v /massa-client-config-directory/:/massa-client/config/ ghcr.io/f-lopes/massa-client:TEST.7.0
 ```
 
 #### Querying your node status
@@ -56,7 +56,7 @@ NODE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{e
 ```
 2. Get node status using client
 ```shell
-docker run --rm -it ghcr.io/f-lopes/massa-client:TEST.6.5 get_status --ip ${NODE_IP}
+docker run --rm -it ghcr.io/f-lopes/massa-client:TEST.7.0 get_status --ip ${NODE_IP}
 ```
 
 #### Generating a wallet
@@ -65,7 +65,7 @@ docker run --rm -it ghcr.io/f-lopes/massa-client:TEST.6.5 get_status --ip ${NODE
 Make sure to back up this file and make it accessible to the client container whenever needed (ie. `wallet_info`, `buy_rolls`, etc.).
 
 ```shell
-docker run --rm -it -v /config/directory/:/massa-client/config/ -v $(pwd):/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.6.5 wallet_generate_private_key -w /massa-client/wallet-directory/wallet.dat
+docker run --rm -it -v /config/directory/:/massa-client/config/ -v $(pwd):/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.7.0 wallet_generate_private_key -w /massa-client/wallet-directory/wallet.dat
 ```
 
 #### Inspecting the generated wallet
@@ -73,7 +73,7 @@ docker run --rm -it -v /config/directory/:/massa-client/config/ -v $(pwd):/massa
 :memo: Make sure to share and reference your `wallet.dat` file (`-v /host/wallet/directory/:/massa-client/wallet-directory/`) each time you want to execute wallet-related commands.
 
 ```shell
-docker run --rm -it -v /config/directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.6.5 wallet_info -w /massa-client/wallet-directory/wallet.dat
+docker run --rm -it -v /config/directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.7.0 wallet_info -w /massa-client/wallet-directory/wallet.dat
 ```
 
 #### Buying rolls
@@ -83,7 +83,7 @@ To buy rolls, you need:
 - a node (RPC) running & accessible (private API port open)
 
 ```shell
-docker run --rm -it -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.6.5 buy_rolls <your_address>  <roll count> <fee> -w /massa-client/wallet-directory/wallet.dat --ip ${NODE_IP}
+docker run --rm -it -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.7.0 buy_rolls <your_address>  <roll count> <fee> -w /massa-client/wallet-directory/wallet.dat --ip ${NODE_IP}
 ```
 
 :grey_question: See [Massa documentation](https://github.com/massalabs/massa/wiki/staking#buying-rolls) for more details.
