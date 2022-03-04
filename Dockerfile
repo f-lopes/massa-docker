@@ -1,5 +1,5 @@
 ARG RUNTIME_BASE_IMAGE=gcr.io/distroless/cc-debian11
-ARG MASSA_VERSION=TEST.7.0
+ARG MASSA_VERSION=TEST.8.0
 
 FROM alpine:3.15 as massa-binaries
 
