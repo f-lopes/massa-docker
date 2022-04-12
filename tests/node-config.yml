@@ -14,7 +14,7 @@ metadataTest:
     - key: MASSA_NODE_HOME
       value: "/massa-node"
     - key: MASSA_VERSION
-      value: "TEST.8.0"
+      value: "TEST.9.2"
   exposedPorts: ["31244", "31245"]
   volumes: ["/massa-node/config"]
   workdir: "/massa-node"

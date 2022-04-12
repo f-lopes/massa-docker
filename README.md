@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/f-lopes/massa-docker/actions/workflows/main.yml/badge.svg)](https://github.com/f-lopes/massa-docker/actions/workflows/main.yml)
 
-The current supported Massa version is `TEST.8.0`.
+The current supported Massa version is `TEST.9.2`.
 
 :information_source: [Massa repository](https://github.com/massalabs/massa/)
 
@@ -19,7 +19,7 @@ The current supported Massa version is `TEST.8.0`.
 
 ```shell
 CONFIG_DIRECTORY=/massa/node/config/
-docker run -d --name massa-node -v /massa-node-config-directory/:${CONFIG_DIRECTORY} -e MASSA_CONFIG_PATH=${CONFIG_DIRECTORY}config.toml ghcr.io/f-lopes/massa-node:TEST.8.0
+docker run -d --name massa-node -v /massa-node-config-directory/:${CONFIG_DIRECTORY} -e MASSA_CONFIG_PATH=${CONFIG_DIRECTORY}config.toml ghcr.io/f-lopes/massa-node:TEST.9.2
 ```
 
 #### Inspect node logs
@@ -30,7 +30,7 @@ docker logs -f massa-node
 ### Using Massa client
 
 ```shell
-docker run --rm -it -v /massa-client-config-directory/:/massa-client/config/ ghcr.io/f-lopes/massa-client:TEST.8.0
+docker run --rm -it -v /massa-client-config-directory/:/massa-client/config/ ghcr.io/f-lopes/massa-client:TEST.9.2
 ```
 
 #### Querying your node status
@@ -41,22 +41,22 @@ NODE_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{e
 ```
 2. Get node status using client
 ```shell
-docker run --rm -it ghcr.io/f-lopes/massa-client:TEST.8.0 get_status --ip ${NODE_IP}
+docker run --rm -it ghcr.io/f-lopes/massa-client:TEST.9.2 get_status --ip ${NODE_IP}
 ```
 
 ### Staking rolls
 
 ```shell
-docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.8.0 buy_rolls <wallet_address> <roll_count> <fee> --ip ${NODE_IP}
+docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.9.2 buy_rolls <wallet_address> <roll_count> <fee> --ip ${NODE_IP}
 ```
 
 ```shell
-docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.8.0 node_add_staking_private_keys <wallet_private_key> --ip ${NODE_IP}
+docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.9.2 node_add_staking_private_keys <wallet_private_key> --ip ${NODE_IP}
 ```
 
 You can verify your node is staking rolls by issuing this command:
 ```shell
-docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.8.0 node_get_staking_addresses --ip ${NODE_IP}
+docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /node-client-config-directory/:/massa-client/wallet-directory/ -w /massa-client/wallet-directory ghcr.io/f-lopes/massa-client:TEST.9.2 node_get_staking_addresses --ip ${NODE_IP}
 ```
 
 Alternatively, you can put your private key into a `staking_keys.json` file and mount its directory into the container (see `staking_keys_path` in the `config.toml` file):
@@ -75,7 +75,7 @@ If you don't have a private key yet, see the next section.
 Make sure to back up this file and make it accessible to the client container whenever needed (ie. `wallet_info`, `buy_rolls`, etc.).
 
 ```shell
-docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v $(pwd):/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.8.0 wallet_generate_private_key -w /massa-client/wallet-directory/wallet.dat
+docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v $(pwd):/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.9.2 wallet_generate_private_key -w /massa-client/wallet-directory/wallet.dat
 ```
 
 #### Inspecting the generated wallet
@@ -83,7 +83,7 @@ docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v $
 :memo: Make sure to share and reference your `wallet.dat` file (`-v /host/wallet/directory/:/massa-client/wallet-directory/`) each time you want to execute wallet-related commands.
 
 ```shell
-docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.8.0 wallet_info -w /massa-client/wallet-directory/wallet.dat
+docker run --rm -it -v /node-client-config-directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.9.2 wallet_info -w /massa-client/wallet-directory/wallet.dat
 ```
 
 #### Buying rolls
@@ -93,7 +93,7 @@ To buy rolls, you need:
 - a node (RPC) running & accessible (private API port open)
 
 ```shell
-docker run --rm -it -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.8.0 buy_rolls <your_address>  <roll count> <fee> -w /massa-client/wallet-directory/wallet.dat --ip ${NODE_IP}
+docker run --rm -it -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.9.2 buy_rolls <your_address>  <roll count> <fee> -w /massa-client/wallet-directory/wallet.dat --ip ${NODE_IP}
 ```
 
 :grey_question: See [Massa documentation](https://github.com/massalabs/massa/wiki/staking#buying-rolls) for more details.
@@ -106,7 +106,7 @@ Registering your node requires interacting with the node private API.
 To do so, please make sure that the node is listening to the `0.0.0.0` interface (see [settings](https://github.com/massalabs/massa/blob/main/massa-node/base_config/config.toml#L11)).
 
 ```shell
-docker run --rm -it -v /config/directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.8.0 wallet_info -w /massa-client/wallet-directory/wallet.dat node_testnet_rewards_program_ownership_proof --ip ${NODE_IP} <your_wallet_address> <your_discord_id>
+docker run --rm -it -v /config/directory/:/massa-client/config/ -v /host/wallet/directory/:/massa-client/wallet-directory/ ghcr.io/f-lopes/massa-client:TEST.9.2 wallet_info -w /massa-client/wallet-directory/wallet.dat node_testnet_rewards_program_ownership_proof --ip ${NODE_IP} <your_wallet_address> <your_discord_id>
 ```
 
 :note:
