@@ -45,7 +45,7 @@ jobs:
 
     - name: Extract metadata (tags, labels) for Docker
       id: docker_metadata
-      uses: docker/metadata-action@v3
+      uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ env.NODE_IMAGE_NAME }}
 
@@ -105,7 +105,7 @@ jobs:
 
     - name: Extract metadata (tags, labels) for Docker
       id: docker_metadata
-      uses: docker/metadata-action@v3
+      uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ env.CLIENT_IMAGE_NAME }}
 
