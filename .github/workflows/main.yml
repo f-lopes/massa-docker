@@ -51,7 +51,7 @@ jobs:
 
     - name: Build Massa node Docker image
       id: massa_node_build_docker_image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         load: true
         target: massa-node
@@ -80,7 +80,7 @@ jobs:
 
     - name: Push Massa node Docker image
       id: massa_node_push_docker_image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         push: true
         target: massa-node
@@ -111,7 +111,7 @@ jobs:
 
     - name: Build Massa client Docker image
       id: massa_client_build_docker_image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         load: true
         target: massa-client
@@ -140,7 +140,7 @@ jobs:
 
     - name: Push Massa client Docker image
       id: massa_client_push_docker_image
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v3
       with:
         push: true
         target: massa-client
